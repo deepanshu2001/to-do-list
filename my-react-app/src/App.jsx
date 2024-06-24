@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Listitem from "./Listitem";
 function App() {
   const [text,setText] =useState("");
   const [items,setitems]=useState([]);
@@ -15,6 +15,13 @@ function App() {
      console.log(val)
      setText(val);
   }
+  function deleteitem(id){
+    setitems(prevValue=>{
+      return prevValue.filter((item,index)=>{
+        return index!=id
+      })
+    })
+  }
   return (
     <div className="container">
       <div className="heading">
@@ -28,8 +35,8 @@ function App() {
       </div>
       <div>
         <ul>
-          {items.map(item=>(
-            <li>{item}</li>
+          {items.map((item,index)=>(
+            <Listitem key={index} id={index} txt={item} onChecked={deleteitem}/>
           ))}
         </ul>
       </div>
